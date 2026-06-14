@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
     // Inicializa o motor e aponta o PC para o endereço correto do cartucho
     cpu_reset();
 
-    printf("\n--- Inicializando Loop Principal de Execucao (Limite: 20 Ciclos) ---\n");
+    printf("\n--- Inicializando Loop Principal de Execucao (Limite: 500 Ciclos) ---\n");
 
     int ciclos = 0;
-    // O loop processará continuamente as instruções até bater em algo desconhecido ou estourar 20 voltas
-    while (cpu.running && ciclos < 20) {
+    // O loop processará continuamente as instruções até bater em algo desconhecido ou estourar 500 voltas
+    while (cpu.running && ciclos < 500) {
         printf("\n[CICLO %d] Endereco do PC Atual = 0x%08X\n", ciclos+1, cpu.r[15]);
 
         // 1. Busca a instrução de 32-bits via barramento
@@ -52,12 +52,15 @@ int main(int argc, char *argv[]) {
 
     // Relatório final impresso no terminal após a parada do motor do emulador
     printf("\n=============================================\n");
-    printf("Estado Final dos Registradores Principais:\n");
+    printf("Estado Final dos Registradores Principais (Apos %d ciclos):\n", ciclos);
     printf("=============================================\n");
     for (int i = 0; i < 8; i++) {
         printf("R%d: 0x%08X\n", i, cpu.r[i]);
     }
+    printf("R13 (SP): 0x%08X\n", cpu.r[13]);
+    printf("R14 (LR): 0x%08X\n", cpu.r[14]);
     printf("PC (R15): 0x%08X\n", cpu.r[15]);
+    printf("CPSR    : 0x%08X\n", cpu.cpsr);
     printf("=============================================\n");
     printf("Emulador finalizado.\n");
     return 0;
