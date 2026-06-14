@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 
     int ciclos = 0;
     // O loop processará continuamente as instruções até bater em algo desconhecido ou estourar 500 voltas
-    while (cpu.running && ciclos < 500) {
+    while (cpu.running && ciclos < 1000) {
         printf("\n[CICLO %d] Endereco do PC Atual = 0x%08X\n", ciclos+1, cpu.r[15]);
 
         // 1. Busca a instrução de 32-bits via barramento
