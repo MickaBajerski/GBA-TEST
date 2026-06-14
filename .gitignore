@@ -1,0 +1,5 @@
+echo "emulador.exe" >> .gitignore
+echo "*.gba" >> .gitignore
+echo "*.gb" >> .gitignore
+echo ".idea/" >> .gitignore
+echo "cmake-build-debug/" >> .gitignore
