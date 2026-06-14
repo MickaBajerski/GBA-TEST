@@ -133,6 +133,21 @@ void cpu_decode_and_execute(uint32_t instr) {
         printf("Executando: STR R%d, [R%d, #%d] -> Endereco gravado: 0x%08X\n", rd, rn, offset, addr);
     }
 
+    // 7. Instrução: MSR (Move Register to Status Register)
+    // Identifica o comando que atualiza o CPSR com o valor de um registrador geral
+    else if ((instr & 0x0FFF0FFF) == 0x01290000) {
+        int rm = instr & 0xF; // Bits 0-3 definem o registrador de origem (R0-R15)
+
+        printf("[DECODE] Instrucao: MSR (Atualizar Status Register)\n");
+        printf("[DECODE] Origem dos dados: Registrador R%d\n", rm);
+
+        // Executa a ação injetando o valor direto no CPSR da CPU
+        cpu.cpsr = cpu.r[rm];
+
+        printf("[EXECUTE] CPSR atualizado! Novo estado do sistema: 0x%08X\n", cpu.cpsr);
+    }
+
+
     // Fallback de segurança para encerrar se bater em um byte que o core ainda não sabe o que é
     else {
         printf("Instrucao nao implementada: 0x%08X\n", instr);
