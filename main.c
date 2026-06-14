@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     // Inicializa o motor e aponta o PC para o endereço correto do cartucho
     cpu_reset();
 
-    printf("\n--- Inicializando Loop Principal de Execucao (Limite: 500 Ciclos) ---\n");
+    printf("\n--- Inicializando Loop Principal de Execucao (Limite: 1000 Ciclos) ---\n");
 
     int ciclos = 0;
     // O loop processará continuamente as instruções até bater em algo desconhecido ou estourar 500 voltas
