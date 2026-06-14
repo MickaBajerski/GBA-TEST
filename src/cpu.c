@@ -107,6 +107,12 @@ void cpu_decode_and_execute(uint32_t instr) {
         printf("Executando: BX R%d -> PC = 0x%08X | Thumb = %s\n",
                rm, cpu.r[15], cpu.thumb_mode ? "true" : "false");
     }
+    // MSR CPSR, Rn (corrigido)
+    else if ((instr & 0x0FFF0FFF) == 0x0129F000 || instr == 0xE129F000) {
+        int rn = (instr >> 16) & 0xF;
+        cpu.cpsr = cpu.r[rn];
+        printf("Executando: MSR CPSR, R%d -> CPSR = 0x%08X\n", rn, cpu.cpsr);
+    }
     else {
         printf("Instrucao nao implementada: 0x%08X\n", instr);
         cpu.running = false;
